@@ -17,6 +17,7 @@ function Admin() {
   const usersTempArray = [];
   React.useEffect(() => {
     getDocs(usersRef).then((snapshot) => {
+      usersTempArray.length = 0;
       snapshot.docs.forEach((doc) => {
         usersTempArray.push(doc.data());
       });
