@@ -1,5 +1,5 @@
 import React from "react";
-import '../Styles/Admin.css'
+import "../Styles/Admin.css";
 import {
   getFirestore,
   collection,
@@ -23,11 +23,25 @@ function Admin() {
       setUsers(usersTempArray);
     });
   }, []);
-  const handleVerification = (e) => {
-    if(e.target.checked) {
-        console.log("checked")
+  const handleVerification = async (e, user) => {
+    if (e.target.checked) {
+      alert(
+        "Are you sure you want to verify this user? Once verified, you cannot undo this action."
+      );
+      const userRef = collection(db, "users");
+      getDocs(userRef).then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          if (doc.data()["registrationNumber"] == user["registrationNumber"]) {
+            updateDoc(doc.ref, {
+              verified: true,
+            });
+          }
+        });
+      });
+    //   window.location.reload();
+    //   console.log(user);
     }
-  }
+  };
   return (
     <div className="container">
       <p className="h3 my-3">Admin Portal</p>
@@ -68,7 +82,14 @@ function Admin() {
                     </a>
                   </td>
                   <td>
-                    <input onChange={handleVerification} type="checkbox" />
+                    {user["verified"] == true ? (
+                      <p>Verified</p>
+                    ) : (
+                      <input
+                        onChange={(e) => handleVerification(e, user)}
+                        type="checkbox"
+                      />
+                    )}
                   </td>
                   <td>
                     <button className="btn btn-danger">Mark Ineligible</button>
