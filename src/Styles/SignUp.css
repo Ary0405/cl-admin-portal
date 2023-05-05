@@ -21,3 +21,12 @@
     font-size: 18px;
     font-weight: bold;
 }
+
+@media (max-width: 768px) {
+    .signin_form {
+        margin-top: 70%;
+    }
+    .form-group > input{
+        width: 300px;
+    }
+}
