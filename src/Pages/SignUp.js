@@ -27,7 +27,7 @@ function SignUp() {
             }
         } else {
             setError("Invalid Credentials");
-            alert(error)
+            alert("Invalid Credentials")
         }
     };
     return (
