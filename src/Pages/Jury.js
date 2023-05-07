@@ -67,6 +67,13 @@ function Jury() {
     return (
         <>
             <div className="container">
+                <p className="h3 my-3">Jury Page</p>
+                <p className="h5 my-4">
+                    This is the Jury Page. Here you can view the submissions of the participants and shortlist them.<br/><br/>
+                    1. Click on the view button to view the submission of the participant.<br/>
+                    2. Click on the radio button to shortlist or reject the participant.<br/>
+                    3. Once enough submissions, refresh the page to view the updated shortlisted status.
+                </p>
                 <table className='table'>
                     <thead>
                         <tr>
