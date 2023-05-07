@@ -33,7 +33,7 @@ function Jury() {
           const userRef = collection(db, "users");
           getDocs(userRef).then((snapshot) => {
             snapshot.docs.forEach((doc) => {
-              if (doc.data()["registrationNumber"] == user["registrationNumber"]) {
+              if (doc.data()["registrationNumber"] === user["registrationNumber"]) {
                 updateDoc(doc.ref, {
                   shortlist: true,
                 });
@@ -54,7 +54,7 @@ function Jury() {
             const userRef = collection(db, "users");
             getDocs(userRef).then((snapshot) => {
                 snapshot.docs.forEach((doc) => {
-                    if (doc.data()["registrationNumber"] == user["registrationNumber"]) {
+                    if (doc.data()["registrationNumber"] === user["registrationNumber"]) {
                         updateDoc(doc.ref, {
                             shortlist: false,
                         });
@@ -86,12 +86,12 @@ function Jury() {
                     </thead>
                     <tbody>
                         {users.map((user) => {
-                            if(user["submission"] == 1){
+                            if(user["submission"] === 1){
                                 return (
                                     <tr>
                                         <th scope='row'>{user["registrationNumber"]}</th>
                                         <td>
-                                            <a href={user["submission_url"]} target="_blank">View</a>
+                                            <a href={user["submission_url"]} target="_blank" rel="noreferrer">View</a>
                                         </td>
                                         <td>
                                             {user["shortlist"] ? (<p>Shortlisted</p>):(<p>Not Shortlisted</p>)}

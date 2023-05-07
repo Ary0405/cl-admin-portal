@@ -32,7 +32,7 @@ function Admin() {
       const userRef = collection(db, "users");
       getDocs(userRef).then((snapshot) => {
         snapshot.docs.forEach((doc) => {
-          if (doc.data()["registrationNumber"] == user["registrationNumber"]) {
+          if (doc.data()["registrationNumber"] === user["registrationNumber"]) {
             updateDoc(doc.ref, {
               verified: true,
             });
@@ -53,7 +53,7 @@ function Admin() {
         const userRef = collection(db, "users");
         getDocs(userRef).then((snapshot) => {
             snapshot.docs.forEach((doc) => {
-                if (doc.data()["registrationNumber"] == user["registrationNumber"]) {
+                if (doc.data()["registrationNumber"] === user["registrationNumber"]) {
                     updateDoc(doc.ref, {
                         shortlist: false,
                     });
@@ -85,7 +85,7 @@ function Admin() {
         </thead>
         <tbody>
           {users.map((user) => {
-            if (user["submission"] == 1) {
+            if (user["submission"] === 1) {
               return (
                 <tr>
                   <th scope="row">{user["registrationNumber"]}</th>
@@ -94,17 +94,17 @@ function Admin() {
                   <td>{user["dob"]}</td>
                   <td>{user["number"]}</td>
                   <td>
-                    <a href={user["aadhar_url"]} target="_blank">
+                    <a href={user["aadhar_url"]} target="_blank" rel="noreferrer">
                       View
                     </a>
                   </td>
                   <td>
-                    <a href={user["submission_url"]} target="_blank">
+                    <a href={user["submission_url"]} target="_blank" rel="noreferrer">
                       View
                     </a>
                   </td>
                   <td>
-                    {user["verified"] == true ? (
+                    {user["verified"] === true ? (
                       <p>Verified</p>
                     ) : ( <p>Not Verified</p>
                     )}
