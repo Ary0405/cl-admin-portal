@@ -43,6 +43,26 @@ function Admin() {
     //   console.log(user);
     }
   };
+
+  const rejectShortlist = async (e, user) => {
+    if (e.target.checked) {
+        alert(
+            "Are you sure you want to reject "
+        );
+
+        const userRef = collection(db, "users");
+        getDocs(userRef).then((snapshot) => {
+            snapshot.docs.forEach((doc) => {
+                if (doc.data()["registrationNumber"] == user["registrationNumber"]) {
+                    updateDoc(doc.ref, {
+                        shortlist: false,
+                    });
+                }
+            });
+        });
+    }
+};
+
   return (
     <div className="container">
       <p className="h3 my-3">Admin Portal</p>
@@ -51,15 +71,16 @@ function Admin() {
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">Registration Number</th>
+            <th scope="col">Registration ID</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">DOB</th>
             <th scope="col">Phone Number</th>
-            <th scope="col">Government ID Image</th>
-            <th scope="col">Submission PDF</th>
-            <th scope="col">Verify</th>
-            <th scope="col">Reject</th>
+            <th scope="col">Gov ID</th>
+            <th scope="col">Submission </th>
+            <th scope="col">Verification status</th>
+            <th scope="col">Eligible</th>
+            <th scope="col">Un Eligible</th>
           </tr>
         </thead>
         <tbody>
@@ -85,15 +106,20 @@ function Admin() {
                   <td>
                     {user["verified"] == true ? (
                       <p>Verified</p>
-                    ) : (
-                      <input
-                        onChange={(e) => handleVerification(e, user)}
-                        type="checkbox"
-                      />
+                    ) : ( <p>Not Verified</p>
                     )}
                   </td>
                   <td>
-                    <button className="btn btn-danger">Mark Ineligible</button>
+                    <input
+                      type="radio"
+                      name={'eligible'+user["registrationNumber"]}
+                      onChange={(e) => handleVerification(e, user)}/>
+                  </td>
+                  <td>
+                    <input
+                      type="radio"
+                      name={'eligible'+user["registrationNumber"]}
+                      onChange={(e) => rejectShortlist(e, user)}/>
                   </td>
                 </tr>
               );
