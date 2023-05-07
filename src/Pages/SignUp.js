@@ -8,6 +8,14 @@ function SignUp() {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    React.useEffect(() => {
+        const clearLogin = () => {
+            localStorage.removeItem('signin')
+            localStorage.removeItem('admin')    
+        }
+        clearLogin();
+    },[]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
@@ -22,7 +30,7 @@ function SignUp() {
             if (password === 'jury123') {
                 console.log("login successful jury")
                 localStorage.setItem('signin', 'true')
-                localStorage.setItem('jury', 'true')
+                localStorage.setItem('admin', 'false')
                 navigate('/jury')
             }
         } else {

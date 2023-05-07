@@ -8,6 +8,7 @@ import {
     setDoc,
   } from "firebase/firestore";
 import { app } from "../firebase";
+import Navbar from './Navbar';
 const db = getFirestore(app);
 function Jury() {
     const usersRef = collection(db, "users");
@@ -22,7 +23,15 @@ function Jury() {
             });
             setUsers(usersTempArray);
           });
+        const updateNav = () => {
+            if (localStorage.getItem('signin') === 'true' && localStorage.getItem('admin') === 'true') {
+                document.getElementById('admin-link').classList.remove('disabled')
+                document.getElementById('admin-link').classList.add('enabled')
+            }
+        };
+        updateNav();
     },[]);
+
 
     const acceptShortlist = async (e, user) => {
         if (e.target.checked) {
@@ -66,6 +75,7 @@ function Jury() {
 
     return (
         <>
+            <Navbar/>
             <div className="container">
                 <p className="h3 my-3">Jury Page</p>
                 <p className="h5 my-4">
@@ -86,7 +96,7 @@ function Jury() {
                     </thead>
                     <tbody>
                         {users.map((user) => {
-                            if(user["submission"] === 1){
+                            if(user['verified']===true){
                                 return (
                                     <tr>
                                         <th scope='row'>{user["registrationNumber"]}</th>
