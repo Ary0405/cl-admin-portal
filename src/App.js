@@ -1,4 +1,3 @@
-import './App.css';
 import Admin from './Pages/Admin';
 import Jury from './Pages/Jury';
 import SignUp from './Pages/SignUp';
