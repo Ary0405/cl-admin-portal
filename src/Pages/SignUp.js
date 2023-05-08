@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../Styles/SignUp.css'
 
 function SignUp() {
@@ -21,14 +21,12 @@ function SignUp() {
         setError("");
         if (email === 'admin-crooked-lines@gmail.com') {
             if (password === 'admin123') {
-                console.log("login successful admin")
                 localStorage.setItem('signin', 'true')
                 localStorage.setItem('admin', 'true')
                 navigate('/admin')
             }
         } else if (email === 'jury-crooked-lines@gmail.com') {
             if (password === 'jury123') {
-                console.log("login successful jury")
                 localStorage.setItem('signin', 'true')
                 localStorage.setItem('admin', 'false')
                 navigate('/jury')

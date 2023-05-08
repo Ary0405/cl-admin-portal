@@ -3,17 +3,17 @@ import {
     getFirestore,
     collection,
     getDocs,
-    doc,
     updateDoc,
-    setDoc,
   } from "firebase/firestore";
 import { app } from "../firebase";
 import Navbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
 const db = getFirestore(app);
 function Jury() {
     const usersRef = collection(db, "users");
     const [users, setUsers] = React.useState([]);
     const usersTempArray = []; 
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         getDocs(usersRef).then((snapshot) => {
@@ -24,7 +24,8 @@ function Jury() {
             setUsers(usersTempArray);
           });
         const updateNav = () => {
-            if (localStorage.getItem('signin') === 'true' && localStorage.getItem('admin') === 'true') {
+            if(localStorage.getItem('signin') === 'false' || localStorage.getItem('signin') === null) navigate('/');
+            else if (localStorage.getItem('signin') === 'true' && localStorage.getItem('admin') === 'true') {
                 document.getElementById('admin-link').classList.remove('disabled')
                 document.getElementById('admin-link').classList.add('enabled')
             }
@@ -96,6 +97,7 @@ function Jury() {
                     </thead>
                     <tbody>
                         {users.map((user) => {
+                            // can add {user['shortlist'] === null || user['shortlist'] === false} to the if condition
                             if(user['verified']===true){
                                 return (
                                     <tr>

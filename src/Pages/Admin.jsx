@@ -4,10 +4,9 @@ import {
   getFirestore,
   collection,
   getDocs,
-  doc,
   updateDoc,
-  setDoc,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { app } from "../firebase";
 import Navbar from "./Navbar";
 const db = getFirestore(app);
@@ -16,6 +15,7 @@ function Admin() {
   const usersRef = collection(db, "users");
   const [users, setUsers] = React.useState([]);
   const usersTempArray = [];
+  const navigate = useNavigate();
   React.useEffect(() => {
     getDocs(usersRef).then((snapshot) => {
       usersTempArray.length = 0;
@@ -25,12 +25,13 @@ function Admin() {
       setUsers(usersTempArray);
     });
     const updateNav = () => {
-      if (localStorage.getItem('signin') === 'true' && localStorage.getItem('admin') === 'true') {
+      if(localStorage.getItem('signin') === 'false' || localStorage.getItem('signin') === null) navigate('/')
+      else if (localStorage.getItem('signin') === 'true' && localStorage.getItem('admin') === 'true') {
           document.getElementById('admin-link').classList.remove('disabled')
           document.getElementById('admin-link').classList.add('enabled')
           document.getElementById('jury-link').classList.remove('disabled')
           document.getElementById('jury-link').classList.add('enabled')
-      }
+      }else  navigate('/jury')
   };
   updateNav();
   }, []);
