@@ -4,6 +4,11 @@ import SignUp from './Pages/SignUp';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
+
+  // Maybe change paths later to /admin and /jury
+  // TZifTyKBWi 
+  // slKJjKcgoy
+
   return (
     <div className="App">
       <BrowserRouter>
