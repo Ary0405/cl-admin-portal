@@ -12,7 +12,6 @@ const db = getFirestore(app);
 function Jury() {
     const usersRef = collection(db, "users");
     const [users, setUsers] = React.useState([]);
-    const [marks, setMarks] = React.useState('');
     const usersTempArray = [];
     const navigate = useNavigate();
 
@@ -51,8 +50,6 @@ function Jury() {
                     }
                 });
             });
-            //   window.location.reload();
-            //   console.log(user);
         }
     };
 
@@ -74,19 +71,6 @@ function Jury() {
             });
         }
     };
-    const handleMarksSubmit = (user) => {
-        alert("Are you sure you want to submit the marks");
-        const userRef = collection(db, "users");
-        getDocs(userRef).then((snapshot) => {
-            snapshot.docs.forEach((doc) => {
-                if (doc.data()["registrationNumber"] === user["registrationNumber"]) {
-                    updateDoc(doc.ref, {
-                        marks: marks,
-                    });
-                }
-            });
-        });
-    }
 
 
     return (
